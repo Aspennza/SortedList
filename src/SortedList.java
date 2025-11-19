@@ -1,3 +1,9 @@
+
+//Come back to writing the sort method for organizing in alphabetical order
+//create a method for searching the list
+//Junit
+//javadoc
+//UML
 public class SortedList
 {
     private String[] stringList;
@@ -33,14 +39,19 @@ public class SortedList
         }
     }
 
-    public void remove(int index)
+    public String[] remove(int index)
     {
+        String[] tempArray = new String[size - 1];
+
         if (index > size - 1 || index < 0)
         {
             System.out.println("The chosen index is outside the bounds of the SortedList.");
+            return null;
         } else
         {
-
+            System.arraycopy(stringList, 0, tempArray, 0, index);
+            System.arraycopy(stringList, index + 1, tempArray, index, stringList.length - index);
+            return tempArray;
         }
     }
 
@@ -60,11 +71,6 @@ public class SortedList
         }
     }
 
-    private void contract()
-    {
-
-    }
-
     public String get(int index)
     {
         if (index > size - 1 || index < 0)
@@ -79,5 +85,17 @@ public class SortedList
     private void sort()
     {
 
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public String[] getStringList() {
+        return stringList;
+    }
+
+    public int getSize() {
+        return size;
     }
 }
