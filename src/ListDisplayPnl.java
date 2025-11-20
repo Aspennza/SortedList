@@ -23,6 +23,10 @@ public class ListDisplayPnl extends JPanel
         add(scroller, BorderLayout.CENTER);
     }
 
+    public void reset() {
+        listTA.setText("");
+    }
+
     public JLabel getListLbl() {
         return listLbl;
     }

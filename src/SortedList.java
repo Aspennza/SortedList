@@ -133,6 +133,7 @@ public class SortedList
         return low;
     }
 
+    //DOES THIS NEED TO BE THE MANUAL VERSION THAT"S SAVED IN ONENOTE??
     private boolean isWordToRight(String insertWord, String midWord)
     {
         return insertWord.compareToIgnoreCase(midWord) > 0;

@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class ListCreator
 {
@@ -101,5 +102,84 @@ public class ListCreator
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("List Sorter");
         frame.setVisible(true);
+    }
+
+    public void validateListItem()
+    {
+        String item = dataEntryPnl.getDataTF().getText().trim();
+
+        if (item.equals("")) {
+            JOptionPane.showMessageDialog(null, "You must enter text in the Data to Enter field before adding an item.");
+        } else {
+            list.sortedAdd(item);
+        }
+    }
+
+    public void reset()
+    {
+        list = new SortedList();
+        dataEntryPnl.reset();
+        searchStringPnl.reset();
+        listDisplayPnl.reset();
+        controlPnl.reset();
+    }
+
+    public void validateSearchString()
+    {
+        String searchString = searchStringPnl.getSearchStringTF().getText().trim();
+
+        if(searchString.equals("")) {
+            JOptionPane.showMessageDialog(null, "You must enter text in the Search String field before adding an item.");
+        } else {
+            list.searchList(searchString);
+        }
+    }
+
+    public void setUpAddItemListener()
+    {
+        dataEntryPnl.addAddBtnListener((ActionEvent ae) ->
+        {
+            validateListItem();
+        });
+    }
+
+    public void setUpResetListener()
+    {
+        controlPnl.addResetActionListener((ActionEvent ae) -> {
+            //This int tracks whether the user confirmed or denied they wanted to reset the program
+            int selection = JOptionPane.showConfirmDialog(null, "Are you sure you want to reset the program?", "Reset", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+            //This algorithm determines whether to reset the program based on the user's input
+            if(selection == JOptionPane.YES_OPTION) {
+                JOptionPane.showMessageDialog(null, "Resetting the program...");
+                reset();
+            } else
+            {
+                JOptionPane.showMessageDialog(null, "The program will stay as-is.");
+            }
+        });
+    }
+
+    public void setUpSearchListener()
+    {
+        controlPnl.addSearchActionListener((ActionEvent ae) ->
+        {
+            validateSearchString();
+        });
+    }
+
+    public void setUpQuitListener()
+    {
+        //This int tracks whether the user confirmed or denied they wanted to quit the program
+        int selection = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit? You can press Re-run Program to reset the program.", "Quit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        //This algorithm determines whether to quit the program based on the user's input
+        if(selection == JOptionPane.YES_OPTION) {
+            JOptionPane.showMessageDialog(null, "Quitting the program...");
+            System.exit(0);
+        } else
+        {
+            JOptionPane.showMessageDialog(null, "The program will remain open.");
+        }
     }
 }

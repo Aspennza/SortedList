@@ -55,6 +55,10 @@ public class DataEntryPnl extends JPanel
         addBtn.addActionListener(listener);
     }
 
+    public void reset() {
+        dataTF.setText("");
+    }
+
     public JButton getAddBtn() {
         return addBtn;
     }

@@ -16,12 +16,19 @@ public class ControlPnl extends JPanel
         setBorder(new CompoundBorder(new EtchedBorder(), new EmptyBorder(10, 10, 10, 10)));
 
         resetBtn = new JButton("Reset Program");
+        resetBtn.setEnabled(false);
         searchBtn = new JButton("Search List");
+        searchBtn.setEnabled(false);
         quitBtn = new JButton("Quit");
 
         add(resetBtn);
         add(searchBtn);
         add(quitBtn);
+    }
+
+    public void reset() {
+        resetBtn.setEnabled(false);
+        searchBtn.setEnabled(false);
     }
 
     public void addResetActionListener(ActionListener listener) {

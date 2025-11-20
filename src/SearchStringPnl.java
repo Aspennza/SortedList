@@ -39,6 +39,10 @@ public class SearchStringPnl extends JPanel
         add(searchStringTF, gbc2);
     }
 
+    public void reset() {
+        searchStringTF.setText("");
+    }
+
     public JLabel getSearchStringLbl() {
         return searchStringLbl;
     }
