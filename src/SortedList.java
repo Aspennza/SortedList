@@ -1,4 +1,3 @@
-
 //Come back to writing the sort method for organizing in alphabetical order
 //create a method for searching the list
 //Junit
@@ -22,21 +21,6 @@ public class SortedList
 
         this.stringList = new String[chosenCapacity];
         this.size = 0;
-    }
-
-    public void add(String item)
-    {
-        for (int i = 0; i < size - 1; i++) {
-            if(stringList[i] == null)
-            {
-                stringList[i] = item;
-                return;
-            } else
-            {
-                expand();
-                stringList[size - 1] = item;
-            }
-        }
     }
 
     public String[] remove(int index)
@@ -82,9 +66,57 @@ public class SortedList
         }
     }
 
-    private void sort()
+    public void sortedAdd(String word)
     {
+        int low = 0;
+        int mid = 0;
+        int high = getSize() - 1;
 
+        do
+        {
+            mid = (low + high) / 2;
+
+            boolean isWordToRight = isWordToRight(word, stringList[mid]);
+
+            if (isWordToRight)
+            {
+                low = mid + 1;
+            } else
+            {
+                high = mid - 1;
+            }
+        } while (low <= high);
+
+        expand();
+
+        for (int i = stringList.length - 1; i > low; i--)
+        {
+            stringList[i] = stringList[i - 1];
+        }
+
+        stringList[low] = word;
+    }
+
+    private boolean isWordToRight(String insertWord, String midWord)
+    {
+        insertWord = insertWord.toLowerCase();
+        midWord = midWord.toLowerCase();
+
+        for (int i = 0; i < midWord.length() && i < insertWord.length(); i++)
+        {
+            if(insertWord.charAt(i) > midWord.charAt(i)) {
+                return true;
+            } else if (insertWord.charAt(i) < midWord.charAt(i)) {
+                return false;
+            }
+        }
+
+        if (insertWord.length() < midWord.length())
+        {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public boolean isEmpty() {
