@@ -1,3 +1,8 @@
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 //Come back to writing the sort method for organizing in alphabetical order
 //create a method for searching the list
 //Junit
@@ -7,50 +12,54 @@ public class SortedList
 {
     private String[] stringList;
     private int size;
+    private int capacity;
     private static final int DEFAULT_CAPACITY = 10;
 
     public SortedList() {
         this.stringList = new String[DEFAULT_CAPACITY];
         this.size = 0;
+        this.capacity = DEFAULT_CAPACITY;
     }
 
     public SortedList(int chosenCapacity) {
-        if (chosenCapacity < 0) {
+        if (chosenCapacity <= 0) {
             System.out.println("The starting size of a SortedList must be 0 or greater.");
+            chosenCapacity = DEFAULT_CAPACITY;
         }
-
         this.stringList = new String[chosenCapacity];
         this.size = 0;
+        this.capacity = chosenCapacity;
     }
 
-    public String[] remove(int index)
+    public void remove(int index)
     {
-        String[] tempArray = new String[size - 1];
-
         if (index > size - 1 || index < 0)
         {
             System.out.println("The chosen index is outside the bounds of the SortedList.");
-            return null;
         } else
         {
-            System.arraycopy(stringList, 0, tempArray, 0, index);
-            System.arraycopy(stringList, index + 1, tempArray, index, stringList.length - index);
-            return tempArray;
+            for (int i = index; i < size - 1; i++)
+            {
+                stringList[i] = stringList[i + 1];
+            }
+
+            stringList[size - 1] = null;
+            size--;
         }
     }
 
     private void expand()
     {
-        String[] tempArray = new String[size];
-        for (int i = 0; i < size - 1; i++) {
+        String[] tempArray = new String[capacity];
+        for (int i = 0; i < size; i++) {
             tempArray[i] = stringList[i];
         }
 
-        size = size + 1;
+        capacity = capacity * 2;
 
-        stringList = new String[size];
+        stringList = new String[capacity];
 
-        for (int i = 0; i < tempArray.length - 1; i++) {
+        for (int i = 0; i < size; i++) {
             stringList[i] = tempArray[i];
         }
     }
@@ -87,36 +96,46 @@ public class SortedList
             }
         } while (low <= high);
 
-        expand();
+        if (capacity == size) {
+            expand();
+        }
 
-        for (int i = stringList.length - 1; i > low; i--)
+        for (int i = size - 1; i > low; i--)
         {
             stringList[i] = stringList[i - 1];
         }
 
         stringList[low] = word;
+        size++;
+    }
+
+    public int searchList(String word)
+    {
+        int low = 0;
+        int mid = 0;
+        int high = size - 1;
+
+        do
+        {
+           mid = (low + high) / 2;
+
+           boolean isWordToRight = isWordToRight(word, stringList[mid]);
+
+           if (word.equalsIgnoreCase(stringList[mid])) {
+               return mid;
+           } else if (isWordToRight) {
+            low = mid + 1;
+           } else {
+            high = mid - 1;
+            }
+        } while (low <= high);
+
+        return low;
     }
 
     private boolean isWordToRight(String insertWord, String midWord)
     {
-        insertWord = insertWord.toLowerCase();
-        midWord = midWord.toLowerCase();
-
-        for (int i = 0; i < midWord.length() && i < insertWord.length(); i++)
-        {
-            if(insertWord.charAt(i) > midWord.charAt(i)) {
-                return true;
-            } else if (insertWord.charAt(i) < midWord.charAt(i)) {
-                return false;
-            }
-        }
-
-        if (insertWord.length() < midWord.length())
-        {
-            return false;
-        } else {
-            return true;
-        }
+        return insertWord.compareToIgnoreCase(midWord) > 0;
     }
 
     public boolean isEmpty() {
@@ -124,10 +143,31 @@ public class SortedList
     }
 
     public String[] getStringList() {
-        return stringList;
+        return Arrays.copyOf(stringList, size);
     }
 
     public int getSize() {
         return size;
+    }
+
+    @Override
+    public String toString() {
+        return "SortedList{" +
+                "stringList=" + Arrays.toString(stringList) +
+                ", size=" + size +
+                ", capacity=" + capacity +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        SortedList that = (SortedList) o;
+        return size == that.size && capacity == that.capacity && Objects.deepEquals(stringList, that.stringList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(Arrays.hashCode(stringList), size, capacity);
     }
 }
