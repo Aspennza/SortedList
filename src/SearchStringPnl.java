@@ -35,8 +35,8 @@ public class SearchStringPnl extends JPanel
         searchStringLbl = new JLabel("Search String:");
         searchStringTF = new JTextField(30);
 
-        add(searchStringLbl);
-        add(searchStringTF);
+        add(searchStringLbl, gbc1);
+        add(searchStringTF, gbc2);
     }
 
     public JLabel getSearchStringLbl() {
