@@ -81,7 +81,13 @@ public class SortedList
         int mid = 0;
         int high = getSize() - 1;
 
-        do
+        if(size == 0) {
+            if(capacity == size) expand();
+            stringList[0] = word;
+            size++;
+            return;
+        }
+        while (low <= high)
         {
             mid = (low + high) / 2;
 
@@ -94,48 +100,49 @@ public class SortedList
             {
                 high = mid - 1;
             }
-        } while (low <= high);
+        }
 
         if (capacity == size) {
             expand();
         }
 
-        for (int i = size - 1; i > low; i--)
+        for (int i = size - 1; i >= low; i--)
         {
-            stringList[i] = stringList[i - 1];
+            stringList[i + 1] = stringList[i];
         }
 
         stringList[low] = word;
         size++;
     }
 
-    public int searchList(String word)
+    public SearchResult searchList(String word)
     {
         int low = 0;
         int mid = 0;
         int high = size - 1;
 
-        do
+        while (low <= high)
         {
            mid = (low + high) / 2;
 
            boolean isWordToRight = isWordToRight(word, stringList[mid]);
 
            if (word.equalsIgnoreCase(stringList[mid])) {
-               return mid;
+               return new SearchResult(mid, true);
            } else if (isWordToRight) {
             low = mid + 1;
            } else {
             high = mid - 1;
             }
-        } while (low <= high);
+        }
 
-        return low;
+        return new SearchResult(low, false);
     }
 
     //DOES THIS NEED TO BE THE MANUAL VERSION THAT"S SAVED IN ONENOTE??
     private boolean isWordToRight(String insertWord, String midWord)
     {
+        if(midWord == null) return true;
         return insertWord.compareToIgnoreCase(midWord) > 0;
     }
 

@@ -1,6 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.nio.file.Paths;
+import java.util.Map;
+import java.util.List;
+import java.util.Set;
+
+//Add a joptionpane welcoming users to the program/explaining it
+//do code review really quick
+//junit
+//javadoc
+//UML
 
 public class ListCreator
 {
@@ -15,6 +25,10 @@ public class ListCreator
     public void start() {
         list = new SortedList();
         generateFrame();
+        setUpAddItemListener();
+        setUpQuitListener();
+        setUpResetListener();
+        setUpSearchListener();
     }
 
     public void generateFrame() {
@@ -104,18 +118,20 @@ public class ListCreator
         frame.setVisible(true);
     }
 
-    public void validateListItem()
+    private boolean validateListItem()
     {
         String item = dataEntryPnl.getDataTF().getText().trim();
 
         if (item.equals("")) {
             JOptionPane.showMessageDialog(null, "You must enter text in the Data to Enter field before adding an item.");
+            return false;
         } else {
             list.sortedAdd(item);
+            return true;
         }
     }
 
-    public void reset()
+    private void reset()
     {
         list = new SortedList();
         dataEntryPnl.reset();
@@ -124,14 +140,36 @@ public class ListCreator
         controlPnl.reset();
     }
 
-    public void validateSearchString()
+    private boolean validateSearchString()
     {
         String searchString = searchStringPnl.getSearchStringTF().getText().trim();
 
         if(searchString.equals("")) {
             JOptionPane.showMessageDialog(null, "You must enter text in the Search String field before adding an item.");
+            return false;
         } else {
-            list.searchList(searchString);
+            SearchResult result = list.searchList(searchString);
+            displaySearchResult(result, searchString);
+            return true;
+        }
+    }
+
+    private void displayArray() {
+        listDisplayPnl.getListTA().append("\n\nCurrent List:");
+        for (int i = 0; i < list.getSize(); i++)
+        {
+            listDisplayPnl.getListTA().append("\n" + list.getStringList()[i]);
+        }
+    }
+
+    private void displaySearchResult(SearchResult result, String searchString) {
+        int location = result.getPosition();
+        boolean exists = result.exists();
+
+        if(exists) {
+            listDisplayPnl.getListTA().append("\n\nThe word " + searchString + " was found at list index " + location + ".\n");
+        } else {
+            listDisplayPnl.getListTA().append("\n\nElement not found. The element would exist at list index " + location + " if it were in the list.\n");
         }
     }
 
@@ -139,7 +177,15 @@ public class ListCreator
     {
         dataEntryPnl.addAddBtnListener((ActionEvent ae) ->
         {
-            validateListItem();
+            boolean added = validateListItem();
+
+            if(added) {
+                JOptionPane.showMessageDialog(null, "Item added.");
+                controlPnl.getResetBtn().setEnabled(true);
+                controlPnl.getSearchBtn().setEnabled(true);
+                displayArray();
+                dataEntryPnl.getDataTF().setText("");
+            }
         });
     }
 
@@ -164,22 +210,28 @@ public class ListCreator
     {
         controlPnl.addSearchActionListener((ActionEvent ae) ->
         {
-            validateSearchString();
+            boolean searched = validateSearchString();
+
+            if(searched) {
+                searchStringPnl.getSearchStringTF().setText("");
+            }
         });
     }
 
     public void setUpQuitListener()
     {
-        //This int tracks whether the user confirmed or denied they wanted to quit the program
-        int selection = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit? You can press Re-run Program to reset the program.", "Quit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        controlPnl.addQuitActionListener((ActionEvent ae) -> {
+            //This int tracks whether the user confirmed or denied they wanted to quit the program
+            int selection = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit? You can press Reset Program to reset.", "Quit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-        //This algorithm determines whether to quit the program based on the user's input
-        if(selection == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(null, "Quitting the program...");
-            System.exit(0);
-        } else
-        {
-            JOptionPane.showMessageDialog(null, "The program will remain open.");
-        }
+            //This algorithm determines whether to quit the program based on the user's input
+            if(selection == JOptionPane.YES_OPTION) {
+                JOptionPane.showMessageDialog(null, "Quitting the program...");
+                System.exit(0);
+            } else
+            {
+                JOptionPane.showMessageDialog(null, "The program will remain open.");
+            }
+        });
     }
 }
