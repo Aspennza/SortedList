@@ -41,4 +41,8 @@ public class ListController
     public String[] getStringList() {
         return list.getStringList();
     }
+
+    public SortedList getList() {
+        return list;
+    }
 }

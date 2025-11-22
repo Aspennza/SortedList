@@ -2,6 +2,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,18 +40,53 @@ class ControlPnlTest {
     @Test
     void reset()
     {
-
+        pnl.getResetBtn().setEnabled(true);
+        pnl.getSearchBtn().setEnabled(true);
+        pnl.reset();
+        assertFalse(pnl.getResetBtn().isEnabled());
+        assertFalse(pnl.getSearchBtn().isEnabled());
     }
 
     @Test
     void addResetActionListener() {
+        class ResetListener implements ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+
+            }
+        }
+
+        ResetListener listener = new ResetListener();
+        pnl.addResetActionListener(listener);
+
+        assertNotNull(pnl.getResetBtn().getActionListeners());
     }
 
     @Test
     void addSearchActionListener() {
+        class SearchListener implements ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        }
+
+        SearchListener listener = new SearchListener();
+        pnl.addSearchActionListener(listener);
+
+        assertNotNull(pnl.getSearchBtn().getActionListeners());
     }
 
     @Test
     void addQuitActionListener() {
+        class QuitListener implements ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent e) {}
+        }
+
+        QuitListener listener = new QuitListener();
+        pnl.addQuitActionListener(listener);
+        assertNotNull(pnl.getQuitBtn().getActionListeners());
     }
 }
