@@ -7,8 +7,13 @@ import java.awt.event.ActionListener;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests the basic functionality of the methods in the ControlPnl class.
+ * @author Zoe Aspenns aspennza@mail.uc.edu
+ */
 class ControlPnlTest {
 
+    //A ControlPnl object for testing the methods
     ControlPnl pnl;
 
     @BeforeEach

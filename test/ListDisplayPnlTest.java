@@ -5,9 +5,13 @@ import javax.swing.border.Border;
 import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Tests the basic functionality of the methods in the ListDisplayPnl.java class.
+ * @author Zoe Aspenns aspennza@mail.uc.edu
+ */
 class ListDisplayPnlTest {
 
+    //A ListDisplayPnl for testing the methods
     ListDisplayPnl pnl;
 
     @BeforeEach

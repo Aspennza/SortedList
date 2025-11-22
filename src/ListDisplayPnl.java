@@ -4,12 +4,23 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
 
+/**
+ * Allows the creation of pre-designed JPanels with a JLabel
+ * and JTextArea for displaying the user's list to the screen.
+ * @author Zoe Aspenns aspennza@mail.uc.edu
+ */
 public class ListDisplayPnl extends JPanel
 {
+    //This JLabel labels the listTA
     JLabel listLbl;
+
+    //This JTextArea is used to display all operations performed on the SortedList
     JTextArea listTA;
+
+    //This JScrollPane allows the listTA to scroll
     JScrollPane scroller;
 
+    //This constructor instantiates the components and sets the layout of the panel
     public ListDisplayPnl() {
         setBorder(new CompoundBorder(new EtchedBorder(), new EmptyBorder(10, 10, 10, 10)));
         setLayout(new BorderLayout());
@@ -23,6 +34,7 @@ public class ListDisplayPnl extends JPanel
         add(scroller, BorderLayout.CENTER);
     }
 
+    //This method resets the panel to its default state
     public void reset() {
         listTA.setText("");
     }

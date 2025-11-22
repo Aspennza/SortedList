@@ -4,12 +4,22 @@ import org.junit.jupiter.api.Test;
 import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Tests the basic functionality of the methods in the SortedList.java class.
+ * @author Zoe Aspenns aspennza@mail.uc.edu
+ */
 class SortedListTest {
 
+    //A SortedList for testing the methods
     SortedList list;
+
+    //A SortedList for testing the methods
     SortedList list2;
+
+    //A SortedList for testing the methods
     SortedList list3;
+
+    //A SortedList for testing the methods
     SortedList list4;
 
     @BeforeEach

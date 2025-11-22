@@ -4,11 +4,20 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
 
+/**
+ * Allows the creation of JPanel objects for entering a search string
+ * for searching a SortedList.
+ * @author Zoe Aspenns aspennza@mail.uc.edu
+ */
 public class SearchStringPnl extends JPanel
 {
+    //A JLabel for the searchStringTF
     JLabel searchStringLbl;
+
+    //A JTextField for entering a search string
     JTextField searchStringTF;
 
+    //This constructor instantiates the components and sets up the panel's layout
     public SearchStringPnl()
     {
         setLayout(new GridBagLayout());
@@ -39,6 +48,9 @@ public class SearchStringPnl extends JPanel
         add(searchStringTF, gbc2);
     }
 
+    /**
+     * This method resets the panel to its default state
+     */
     public void reset() {
         searchStringTF.setText("");
     }

@@ -4,9 +4,13 @@ import org.junit.jupiter.api.Test;
 import javax.swing.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Tests the basic functionality of the methods in the ListCreator.java class.
+ * @author Zoe Aspenns aspennza@mail.uc.edu
+ */
 class ListCreatorTest {
 
+    //A ListCreator for testing the methods
     ListCreator creator;
 
     @BeforeEach

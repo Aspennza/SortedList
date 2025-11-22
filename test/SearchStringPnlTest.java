@@ -4,9 +4,13 @@ import org.junit.jupiter.api.Test;
 import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Tests the basic functionality of the methods in the SearchStringPnl.java class.
+ * @author Zoe Aspenns aspennza@mail.uc.edu
+ */
 class SearchStringPnlTest {
 
+    //A SearchStringPnl for testing the methods
     SearchStringPnl pnl;
 
     @BeforeEach

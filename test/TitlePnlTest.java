@@ -4,9 +4,13 @@ import org.junit.jupiter.api.Test;
 import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Tests the basic functionality of the methods in the TitlePnl.java class.
+ * @author Zoe Aspenns aspennza@mail.uc.edu
+ */
 class TitlePnlTest {
 
+    //A TitlePnl for testing the methods
     TitlePnl pnl;
 
     @BeforeEach

@@ -2,11 +2,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Tests the basic functionality of the methods in the SearchResult.java class.
+ * @author Zoe Aspenns aspennza@mail.uc.edu
+ */
 class SearchResultTest {
 
+    //A SearchResult for testing the methods
     SearchResult result1;
+
+    //A SearchResult for testing the methods
     SearchResult result2;
+
+    //A SearchResult for testing the methods
     SearchResult result3;
 
     @BeforeEach

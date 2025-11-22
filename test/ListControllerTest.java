@@ -3,8 +3,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests the basic functionality of the methods in the ListController.java class.
+ * @author Zoe Aspenns aspennza@mail.uc.edu
+ */
 class ListControllerTest {
 
+    //A ListController for testing the methods
     ListController list;
 
     @BeforeEach

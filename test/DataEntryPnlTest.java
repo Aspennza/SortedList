@@ -7,8 +7,13 @@ import java.awt.event.ActionListener;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests the basic functionality of the methods in the DataEntryPnl.java class.
+ * @author Zoe Aspenns aspennza@mail.uc.edu
+ */
 class DataEntryPnlTest {
 
+    //A DataEntryPnl for testing the methods
     DataEntryPnl pnl;
 
     @BeforeEach
