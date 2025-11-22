@@ -6,8 +6,6 @@ import java.util.Map;
 import java.util.List;
 import java.util.Set;
 
-//Add a joptionpane welcoming users to the program/explaining it
-//do code review really quick
 //junit
 //javadoc
 //UML
@@ -20,15 +18,16 @@ public class ListCreator
     private SearchStringPnl searchStringPnl;
     private ListDisplayPnl listDisplayPnl;
     private ControlPnl controlPnl;
-    private SortedList list;
+    ListController controller;
 
     public void start() {
-        list = new SortedList();
+        controller = new ListController();
         generateFrame();
         setUpAddItemListener();
         setUpQuitListener();
         setUpResetListener();
         setUpSearchListener();
+        JOptionPane.showMessageDialog(null, "Welcome to the List Creator. First, enter some list items. They will be sorted in lexicographic order, and then you can search them.");
     }
 
     public void generateFrame() {
@@ -122,33 +121,30 @@ public class ListCreator
     {
         String item = dataEntryPnl.getDataTF().getText().trim();
 
-        if (item.equals("")) {
-            JOptionPane.showMessageDialog(null, "You must enter text in the Data to Enter field before adding an item.");
-            return false;
-        } else {
-            list.sortedAdd(item);
-            return true;
-        }
+        return controller.addItemIfValid(item);
     }
 
     private void reset()
     {
-        list = new SortedList();
+        controller.reset();
         dataEntryPnl.reset();
         searchStringPnl.reset();
         listDisplayPnl.reset();
         controlPnl.reset();
     }
 
-    private boolean validateSearchString()
-    {
-        String searchString = searchStringPnl.getSearchStringTF().getText().trim();
+    private String getSearchString() {
+        return searchStringPnl.getSearchStringTF().getText().trim();
+    }
 
-        if(searchString.equals("")) {
-            JOptionPane.showMessageDialog(null, "You must enter text in the Search String field before adding an item.");
+    private boolean handleSearch(String searchString)
+    {
+        SearchResult result = controller.search(searchString);
+
+        if(result == null) {
+            JOptionPane.showMessageDialog(null, "You must enter text in the Search String field before searching.");
             return false;
         } else {
-            SearchResult result = list.searchList(searchString);
             displaySearchResult(result, searchString);
             return true;
         }
@@ -156,9 +152,9 @@ public class ListCreator
 
     private void displayArray() {
         listDisplayPnl.getListTA().append("\n\nCurrent List:");
-        for (int i = 0; i < list.getSize(); i++)
+        for (int i = 0; i < controller.getListSize(); i++)
         {
-            listDisplayPnl.getListTA().append("\n" + list.getStringList()[i]);
+            listDisplayPnl.getListTA().append("\n" + controller.getStringList()[i]);
         }
     }
 
@@ -210,7 +206,8 @@ public class ListCreator
     {
         controlPnl.addSearchActionListener((ActionEvent ae) ->
         {
-            boolean searched = validateSearchString();
+            String searchString = getSearchString();
+            boolean searched = handleSearch(searchString);
 
             if(searched) {
                 searchStringPnl.getSearchStringTF().setText("");

@@ -1,10 +1,6 @@
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
-//Come back to writing the sort method for organizing in alphabetical order
-//create a method for searching the list
 //Junit
 //javadoc
 //UML
@@ -139,7 +135,6 @@ public class SortedList
         return new SearchResult(low, false);
     }
 
-    //DOES THIS NEED TO BE THE MANUAL VERSION THAT"S SAVED IN ONENOTE??
     private boolean isWordToRight(String insertWord, String midWord)
     {
         if(midWord == null) return true;
