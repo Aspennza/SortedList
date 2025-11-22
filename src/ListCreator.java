@@ -1,10 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.nio.file.Paths;
-import java.util.Map;
-import java.util.List;
-import java.util.Set;
 
 //junit
 //javadoc
@@ -117,14 +113,14 @@ public class ListCreator
         frame.setVisible(true);
     }
 
-    private boolean validateListItem()
+    public boolean validateListItem()
     {
         String item = dataEntryPnl.getDataTF().getText().trim();
 
         return controller.addItemIfValid(item);
     }
 
-    private void reset()
+    public void reset()
     {
         controller.reset();
         dataEntryPnl.reset();
@@ -133,11 +129,11 @@ public class ListCreator
         controlPnl.reset();
     }
 
-    private String getSearchString() {
+    public String getSearchString() {
         return searchStringPnl.getSearchStringTF().getText().trim();
     }
 
-    private boolean handleSearch(String searchString)
+    public boolean handleSearch(String searchString)
     {
         SearchResult result = controller.search(searchString);
 
@@ -181,6 +177,8 @@ public class ListCreator
                 controlPnl.getSearchBtn().setEnabled(true);
                 displayArray();
                 dataEntryPnl.getDataTF().setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "The Data to Enter field must be filled out before adding an item.");
             }
         });
     }
@@ -230,5 +228,33 @@ public class ListCreator
                 JOptionPane.showMessageDialog(null, "The program will remain open.");
             }
         });
+    }
+
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public TitlePnl getTitlePnl() {
+        return titlePnl;
+    }
+
+    public DataEntryPnl getDataEntryPnl() {
+        return dataEntryPnl;
+    }
+
+    public SearchStringPnl getSearchStringPnl() {
+        return searchStringPnl;
+    }
+
+    public ListDisplayPnl getListDisplayPnl() {
+        return listDisplayPnl;
+    }
+
+    public ControlPnl getControlPnl() {
+        return controlPnl;
+    }
+
+    public ListController getController() {
+        return controller;
     }
 }

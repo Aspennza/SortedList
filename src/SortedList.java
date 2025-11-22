@@ -153,6 +153,10 @@ public class SortedList
         return size;
     }
 
+    public int getCapacity() {
+        return capacity;
+    }
+
     @Override
     public String toString() {
         return "SortedList{" +
