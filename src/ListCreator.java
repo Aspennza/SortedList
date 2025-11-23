@@ -2,9 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-//javadoc
-//UML
-
 /**
  * This class is used to generate the GUI for the program and
  * develop the buttons' ActionListeners.
